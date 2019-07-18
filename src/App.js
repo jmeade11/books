@@ -9,6 +9,7 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import Books from './books/components/Books'
+import Book from './books/components/Book'
 import CreateBook from './books/components/CreateBook'
 
 import Alert from 'react-bootstrap/Alert'
@@ -47,6 +48,9 @@ class App extends Component {
         <main className="container">
           <Route exact path='/books' render={() => (
             <Books />
+          )} />
+          <Route exact path='/books/:id' render={() => (
+            <Book />
           )} />
           <AuthenticatedRoute user={user} path='/createbook' render={() => (
             <CreateBook user={user} alert={this.alert} />
