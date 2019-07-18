@@ -3,6 +3,7 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { Link, withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Layout from './Layout'
 
 class Book extends Component {
   constructor (props) {
@@ -52,14 +53,15 @@ class Book extends Component {
     )
 
     return (
-      <div>
+      <Layout md="8" lg="6">
         <h3>Book Details</h3>
         <h4>Title: {book.title}</h4>
         <p>Author: {book.author}</p>
         <p>First Published: {book.firstPublished}</p>
         <p>Original Language: {book.originalLanguage}</p>
+        <p>Owner: {book.owner}</p>
         {user && user._id === book.owner ? ownerButtons : <p>{user ? 'You don\'t own this book' : 'Sign in to edit your books'}</p>}
-      </div>
+      </Layout>
     )
   }
 }

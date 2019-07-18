@@ -4,6 +4,7 @@ import apiUrl from '../../apiConfig'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Redirect } from 'react-router-dom'
+import Layout from './Layout'
 
 class CreateBook extends Component {
   constructor (props) {
@@ -52,31 +53,33 @@ class CreateBook extends Component {
     }
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group controlId="title">
-          <Form.Label>Book Title</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Title"
-            name="title"
-            onChange={this.handleChange}
-            value={book.title}
-          />
-        </Form.Group>
-        <Form.Group controlId="author">
-          <Form.Label>Book Author</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Author"
-            name="author"
-            onChange={this.handleChange}
-            value={book.author}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
+      <Layout md="8" lg="6">
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group controlId="title">
+            <Form.Label>Book Title</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Title"
+              name="title"
+              onChange={this.handleChange}
+              value={book.title}
+            />
+          </Form.Group>
+          <Form.Group controlId="author">
+            <Form.Label>Book Author</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Author"
+              name="author"
+              onChange={this.handleChange}
+              value={book.author}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </Layout>
     )
   }
 }

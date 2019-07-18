@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import apiUrl from '../../apiConfig'
 import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import Layout from './Layout'
 
 class EditBook extends Component {
   constructor (props) {
@@ -64,50 +65,52 @@ class EditBook extends Component {
     const { book } = this.state
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group controlId="title">
-          <Form.Label>Book Title</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Title"
-            name="title"
-            onChange={this.handleChange}
-            value={book.title}
-          />
-        </Form.Group>
-        <Form.Group controlId="author">
-          <Form.Label>Book Author</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Author"
-            name="author"
-            onChange={this.handleChange}
-            value={book.author}
-          />
-        </Form.Group>
-        <Form.Group controlId="firstPublished">
-          <Form.Label>First Published</Form.Label>
-          <Form.Control
-            type="date"
-            name="firstPublished"
-            onChange={this.handleChange}
-            value={book.firstPublished}
-          />
-        </Form.Group>
-        <Form.Group controlId="originalLanguage">
-          <Form.Label>Original Language</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="original language"
-            name="originalLanguage"
-            onChange={this.handleChange}
-            value={book.originalLanguage}
-          />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
+      <Layout md="8" lg="6">
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group controlId="title">
+            <Form.Label>Book Title</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Title"
+              name="title"
+              onChange={this.handleChange}
+              value={book.title}
+            />
+          </Form.Group>
+          <Form.Group controlId="author">
+            <Form.Label>Book Author</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Author"
+              name="author"
+              onChange={this.handleChange}
+              value={book.author}
+            />
+          </Form.Group>
+          <Form.Group controlId="firstPublished">
+            <Form.Label>First Published</Form.Label>
+            <Form.Control
+              type="date"
+              name="firstPublished"
+              onChange={this.handleChange}
+              value={book.firstPublished}
+            />
+          </Form.Group>
+          <Form.Group controlId="originalLanguage">
+            <Form.Label>Original Language</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="original language"
+              name="originalLanguage"
+              onChange={this.handleChange}
+              value={book.originalLanguage}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </Layout>
     )
   }
 }

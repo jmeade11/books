@@ -4,6 +4,7 @@ import apiUrl from '../../apiConfig'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Layout from './Layout'
 
 class Books extends Component {
   constructor (props) {
@@ -35,12 +36,12 @@ class Books extends Component {
     ))
 
     return (
-      <div>
+      <Layout md="8" lg="6">
         <h3 className="d-flex justify-content-between">Books {user && <Button href="#createbook">Add a Book</Button>}</h3>
         <ListGroup>
           {bookArray}
         </ListGroup>
-      </div>
+      </Layout>
     )
   }
 }
