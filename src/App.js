@@ -11,6 +11,7 @@ import ChangePassword from './auth/components/ChangePassword'
 import Books from './books/components/Books'
 import Book from './books/components/Book'
 import CreateBook from './books/components/CreateBook'
+import EditBook from './books/components/EditBook'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -52,6 +53,12 @@ class App extends Component {
           <Route exact path='/books/:id' render={() => (
             <Book user={user} />
           )} />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/books/:id/edit'
+            render={() => <EditBook alert={this.alert} user={user} />}
+          />
           <AuthenticatedRoute user={user} path='/createbook' render={() => (
             <CreateBook user={user} alert={this.alert} />
           )} />
