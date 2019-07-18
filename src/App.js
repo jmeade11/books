@@ -8,6 +8,7 @@ import SignUp from './auth/components/SignUp'
 import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
+import Books from './books/components/Books'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -43,6 +44,9 @@ class App extends Component {
           </Alert>
         ))}
         <main className="container">
+          <Route exact path='/books' render={() => (
+            <Books />
+          )} />
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
