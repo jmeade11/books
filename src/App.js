@@ -50,7 +50,7 @@ class App extends Component {
             <Books />
           )} />
           <Route exact path='/books/:id' render={() => (
-            <Book />
+            <Book user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/createbook' render={() => (
             <CreateBook user={user} alert={this.alert} />
