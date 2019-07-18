@@ -10,7 +10,9 @@ class Books extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      books: []
+      books: [],
+      filtered: false,
+      sorted: false
     }
   }
 
@@ -20,12 +22,23 @@ class Books extends Component {
       .catch(console.error)
   }
 
+  handleSort = event => {
+    event.preventDefault()
+    this.setState({ books: this.state.books.reverse(), sorted: !this.state.sorted })
+  }
+
+  handleFilter = event => {
+    event.preventDefault()
+    this.setState({ filtered: !this.state.filtered })
+  }
+
   render () {
-    const { books } = this.state
+    const { books, filtered, sorted } = this.state
     const { user } = this.props
 
     const bookArray = books.map(book => (
       <ListGroup.Item
+        className={filtered && !(user._id === book.owner) ? 'd-none' : ''}
         key={book._id}
         action
         as={Link}
@@ -37,7 +50,28 @@ class Books extends Component {
 
     return (
       <Layout md="8" lg="6">
-        <h3 className="d-flex justify-content-between">Books {user && <Button href="#createbook">Add a Book</Button>}</h3>
+        <div className="d-flex justify-content-between mb-2">
+          <h3>Books</h3>
+          {
+            user ? (
+              <div>
+                <Button variant="outline-secondary" href="#createbook" className="mr-2">
+                  <i className="icofont-ui-add"></i>
+                </Button>
+                <Button variant={filtered ? 'outline-primary' : 'outline-secondary'} onClick={this.handleFilter} className="mr-2">
+                  <i className="icofont-filter"></i>
+                </Button>
+                <Button variant={sorted ? 'outline-primary' : 'outline-secondary'} onClick={this.handleSort}>
+                  <i className="icofont-sort"></i>
+                </Button>
+              </div>
+            ) : (
+              <Button variant={sorted ? 'outline-primary' : 'outline-secondary'} onClick={this.handleSort}>
+                <i className="icofont-sort"></i>
+              </Button>
+            )
+          }
+        </div>
         <ListGroup>
           {bookArray}
         </ListGroup>

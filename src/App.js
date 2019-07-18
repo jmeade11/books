@@ -47,31 +47,34 @@ class App extends Component {
           </Alert>
         ))}
         <main className="container">
-          <Route exact path='/books' render={() => (
+          <Route exact path="/" render={() => (
             <Books user={user} />
           )} />
-          <Route exact path='/books/:id' render={() => (
+          <Route exact path="/books" render={() => (
+            <Books user={user} />
+          )} />
+          <Route exact path="/books/:id" render={() => (
             <Book user={user} alert={this.alert} />
           )} />
           <AuthenticatedRoute
             exact
             user={user}
-            path='/books/:id/edit'
+            path="/books/:id/edit"
             render={() => <EditBook alert={this.alert} user={user} />}
           />
-          <AuthenticatedRoute user={user} path='/createbook' render={() => (
+          <AuthenticatedRoute user={user} path="/createbook" render={() => (
             <CreateBook user={user} alert={this.alert} />
           )} />
-          <Route path='/sign-up' render={() => (
+          <Route path="/sign-up" render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
-          <Route path='/sign-in' render={() => (
+          <Route path="/sign-in" render={() => (
             <SignIn alert={this.alert} setUser={this.setUser} />
           )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+          <AuthenticatedRoute user={user} path="/sign-out" render={() => (
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
+          <AuthenticatedRoute user={user} path="/change-password" render={() => (
             <ChangePassword alert={this.alert} user={user} />
           )} />
         </main>

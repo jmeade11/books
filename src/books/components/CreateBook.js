@@ -75,6 +75,26 @@ class CreateBook extends Component {
               value={book.author}
             />
           </Form.Group>
+          <Form.Group controlId="originalLanguage">
+            <Form.Label>Book Author</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Original Language"
+              name="originalLanguage"
+              onChange={this.handleChange}
+              value={book.originalLanguage}
+            />
+          </Form.Group>
+          <Form.Group controlId="firstPublished">
+            <Form.Label>Book Author</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="Author"
+              name="firstPublished"
+              onChange={this.handleChange}
+              value={book.firstPublished}
+            />
+          </Form.Group>
           <Button variant="primary" type="submit">
             Submit
           </Button>
