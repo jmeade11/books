@@ -48,7 +48,7 @@ class App extends Component {
         ))}
         <main className="container">
           <Route exact path='/books' render={() => (
-            <Books />
+            <Books user={user} />
           )} />
           <Route exact path='/books/:id' render={() => (
             <Book user={user} />
