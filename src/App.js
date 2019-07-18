@@ -51,7 +51,7 @@ class App extends Component {
             <Books user={user} />
           )} />
           <Route exact path='/books/:id' render={() => (
-            <Book user={user} />
+            <Book user={user} alert={this.alert} />
           )} />
           <AuthenticatedRoute
             exact

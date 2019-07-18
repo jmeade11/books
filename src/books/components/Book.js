@@ -29,7 +29,6 @@ class Book extends Component {
         }
         const dateObj = new Date(res.data.book.firstPublished)
         const formattedDate = dateObj.toLocaleDateString(undefined, options)
-        console.log(res.data.book)
         this.setState({
           book: {
             ...res.data.book,
@@ -40,12 +39,27 @@ class Book extends Component {
       .catch(console.error)
   }
 
+  handleDelete = event => {
+    event.preventDefault()
+
+    axios({
+      url: `${apiUrl}/books/${this.props.match.params.id}`,
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+      .then(() => this.props.alert('You deleted a book!', 'success'))
+      .then(() => this.props.history.push('/books'))
+      .catch(() => this.props.alert('Something went wrong :-( ', 'danger'))
+  }
+
   render () {
     const { book } = this.state
     const { user } = this.props
     const ownerButtons = (
       <div>
-        <Button variant="danger" className="mr-2">Delete</Button>
+        <Button variant="danger" className="mr-2" onClick={this.handleDelete}>Delete</Button>
         <Link to={`/books/${this.props.match.params.id}/edit`}>
           <Button>Edit</Button>
         </Link>
@@ -59,7 +73,6 @@ class Book extends Component {
         <p>Author: {book.author}</p>
         <p>First Published: {book.firstPublished}</p>
         <p>Original Language: {book.originalLanguage}</p>
-        <p>Owner: {book.owner}</p>
         {user && user._id === book.owner ? ownerButtons : <p>{user ? 'You don\'t own this book' : 'Sign in to edit your books'}</p>}
       </Layout>
     )
