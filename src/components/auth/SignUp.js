@@ -14,6 +14,7 @@ class SignUp extends Component {
     super()
 
     this.state = {
+      username: '',
       email: '',
       password: '',
       passwordConfirmation: ''
@@ -37,18 +38,29 @@ class SignUp extends Component {
       .then(() => history.push('/'))
       .catch(error => {
         console.error(error)
-        this.setState({ email: '', password: '', passwordConfirmation: '' })
+        this.setState({ username: '', email: '', password: '', passwordConfirmation: '' })
         alert(signUpFailure.heading, signUpFailure.message, 'danger')
       })
   }
 
   render () {
-    const { email, password, passwordConfirmation } = this.state
+    const { email, password, passwordConfirmation, username } = this.state
 
     return (
       <Layout md="8" lg="6">
         <Form onSubmit={this.onSignUp}>
           <h3>Sign Up</h3>
+          <Form.Group controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              required
+              type="username"
+              name="username"
+              value={username}
+              placeholder="Username"
+              onChange={this.handleChange}
+            />
+          </Form.Group>
           <Form.Group controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
