@@ -2,18 +2,17 @@ import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
 
-import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
-import Header from './header/Header'
-import SignUp from './auth/components/SignUp'
-import SignIn from './auth/components/SignIn'
-import SignOut from './auth/components/SignOut'
-import ChangePassword from './auth/components/ChangePassword'
-import Books from './books/components/Books'
-import Book from './books/components/Book'
-import CreateBook from './books/components/CreateBook'
-import EditBook from './books/components/EditBook'
-
-import Alert from 'react-bootstrap/Alert'
+import AuthenticatedRoute from './components/auth/AuthenticatedRoute'
+import Header from './components/common/Header'
+import SignUp from './components/auth/SignUp'
+import SignIn from './components/auth/SignIn'
+import SignOut from './components/auth/SignOut'
+import ChangePassword from './components/auth/ChangePassword'
+import Books from './components/books/Books'
+import Book from './components/books/Book'
+import CreateBook from './components/books/CreateBook'
+import EditBook from './components/books/EditBook'
+import AutoDismissAlert from './components/common/AutoDismissAlert'
 
 class App extends Component {
   constructor () {
@@ -29,8 +28,8 @@ class App extends Component {
 
   clearUser = () => this.setState({ user: null })
 
-  alert = (message, type) => {
-    this.setState({ alerts: [...this.state.alerts, { message, type }] })
+  alert = (heading, message, variant) => {
+    this.setState({ alerts: [...this.state.alerts, { heading, message, variant }] })
   }
 
   render () {
@@ -39,13 +38,6 @@ class App extends Component {
     return (
       <React.Fragment>
         <Header user={user} />
-        {alerts.map((alert, index) => (
-          <Alert key={index} dismissible variant={alert.type}>
-            <Alert.Heading>
-              {alert.message}
-            </Alert.Heading>
-          </Alert>
-        ))}
         <main className="container">
           <Route exact path="/" render={() => (
             <Books user={user} />
@@ -78,6 +70,14 @@ class App extends Component {
             <ChangePassword alert={this.alert} user={user} />
           )} />
         </main>
+        {alerts.map((alert, index) => (
+          <AutoDismissAlert
+            key={index}
+            heading={alert.heading}
+            variant={alert.variant}
+            message={alert.message}
+          />
+        ))}
       </React.Fragment>
     )
   }

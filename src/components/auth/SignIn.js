@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
-import { signUp, signIn } from '../api'
-import messages from '../messages'
-
+import { signIn } from './api'
+import messages from '../common/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Layout from '../common/Layout'
 
-import Layout from '../../books/components/Layout'
-
-class SignUp extends Component {
+class SignIn extends Component {
   constructor () {
     super()
 
     this.state = {
       email: '',
-      password: '',
-      passwordConfirmation: ''
+      password: ''
     }
   }
 
@@ -24,29 +21,29 @@ class SignUp extends Component {
     [event.target.name]: event.target.value
   })
 
-  onSignUp = event => {
+  onSignIn = event => {
     event.preventDefault()
 
     const { alert, history, setUser } = this.props
+    const { signInSuccess, signInFailure } = messages
 
-    signUp(this.state)
-      .then(() => signIn(this.state))
+    signIn(this.state)
       .then(res => setUser(res.data.user))
-      .then(() => alert(messages.signUpSuccess, 'success'))
+      .then(() => alert(signInSuccess.heading, signInSuccess.message, 'success'))
       .then(() => history.push('/'))
       .catch(error => {
         console.error(error)
-        this.setState({ email: '', password: '', passwordConfirmation: '' })
-        alert(messages.signUpFailure, 'danger')
+        this.setState({ email: '', password: '' })
+        alert(signInFailure.heading, signInFailure.message, 'danger')
       })
   }
 
   render () {
-    const { email, password, passwordConfirmation } = this.state
+    const { email, password } = this.state
 
     return (
       <Layout md="8" lg="6">
-        <Form onSubmit={this.onSignUp}>
+        <Form onSubmit={this.onSignIn}>
           <h3>Sign In</h3>
           <Form.Group controlId="email">
             <Form.Label>Email</Form.Label>
@@ -70,17 +67,6 @@ class SignUp extends Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="passwordConfirmation">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              required
-              name="passwordConfirmation"
-              value={passwordConfirmation}
-              type="password"
-              placeholder="Confirm Password"
-              onChange={this.handleChange}
-            />
-          </Form.Group>
           <Button type="submit">Sign In</Button>
         </Form>
       </Layout>
@@ -88,4 +74,4 @@ class SignUp extends Component {
   }
 }
 
-export default withRouter(SignUp)
+export default withRouter(SignIn)

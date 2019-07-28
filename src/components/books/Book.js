@@ -3,7 +3,7 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { Link, withRouter } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-import Layout from './Layout'
+import Layout from '../common/Layout'
 
 class Book extends Component {
   constructor (props) {
@@ -28,7 +28,8 @@ class Book extends Component {
           year: 'numeric'
         }
         const dateObj = new Date(res.data.book.firstPublished)
-        const formattedDate = dateObj.toLocaleDateString(undefined, options)
+        const offsetDate = new Date(dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset()))
+        const formattedDate = offsetDate.toLocaleDateString(undefined, options)
         this.setState({
           book: {
             ...res.data.book,
@@ -49,9 +50,9 @@ class Book extends Component {
         'Authorization': `Bearer ${this.props.user.token}`
       }
     })
-      .then(() => this.props.alert('You deleted a book!', 'success'))
+      .then(() => this.props.alert('Now you did it...', 'You deleted a book!', 'success'))
       .then(() => this.props.history.push('/books'))
-      .catch(() => this.props.alert('Something went wrong :-( ', 'danger'))
+      .catch(() => this.props.alert('Something went wrong :-( ', 'The book wasn\'t deleted. Maybe you should try again.', 'danger'))
   }
 
   render () {
@@ -74,6 +75,7 @@ class Book extends Component {
         <p>First Published: {book.firstPublished}</p>
         <p>Original Language: {book.originalLanguage}</p>
         {user && user._id === book.owner ? ownerButtons : <p>{user ? 'You don\'t own this book' : 'Sign in to edit your books'}</p>}
+        <Button className="mt-2" href="#books"><i className="icofont-book-alt" /> Books</Button>
       </Layout>
     )
   }

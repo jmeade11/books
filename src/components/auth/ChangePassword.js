@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
-import { changePassword } from '../api'
-import messages from '../messages'
+import { changePassword } from './api'
+import messages from '../common/messages'
 
-import Layout from '../../books/components/Layout'
+import Layout from '../common/Layout'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
@@ -26,14 +26,15 @@ class ChangePassword extends Component {
     event.preventDefault()
 
     const { alert, history, user } = this.props
+    const { changePasswordSuccess, changePasswordFailure } = messages
 
     changePassword(this.state, user)
-      .then(() => alert(messages.changePasswordSuccess, 'success'))
+      .then(() => alert(changePasswordSuccess.heading, changePasswordSuccess.message, 'success'))
       .then(() => history.push('/'))
       .catch(error => {
         console.error(error)
         this.setState({ oldPassword: '', newPassword: '' })
-        alert(messages.changePasswordFailure, 'danger')
+        alert(changePasswordFailure.heading, changePasswordFailure.message, 'danger')
       })
   }
 
