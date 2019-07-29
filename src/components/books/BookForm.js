@@ -47,6 +47,14 @@ const BookForm = ({ book, handleChange, handleSubmit }) => {
           value={book.firstPublished}
         />
       </Form.Group>
+      <Form.Group controlId="file" encType="multipart/form-data">
+        <Form.Label>Book Cover</Form.Label>
+        <Form.Control
+          type="file"
+          name="file"
+          onChange={handleChange}
+        />
+      </Form.Group>
       <Button variant="primary" type="submit">
         Submit
       </Button>

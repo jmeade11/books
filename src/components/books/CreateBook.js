@@ -30,14 +30,16 @@ class CreateBook extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-
+    const formData = new FormData(event.target)
     axios({
-      url: `${apiUrl}/books`,
       method: 'POST',
+      url: `${apiUrl}/books`,
+      contentType: false,
+      processData: false,
       headers: {
         'Authorization': `Token token=${this.props.user.token}`
       },
-      data: { book: this.state.book }
+      data: formData
     })
       .then(res => this.setState({ createdBookId: res.data.book._id }))
       .then(() => this.props.alert('Yippeee...', 'You created a new book', 'success'))

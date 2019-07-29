@@ -14,7 +14,8 @@ class Book extends Component {
         author: '',
         owner: '',
         firstPublished: '',
-        originalLanguage: ''
+        originalLanguage: '',
+        url: ''
       }
     }
   }
@@ -70,6 +71,7 @@ class Book extends Component {
     return (
       <Layout md="8" lg="6">
         <h3>Book Details</h3>
+        {book.url && <img src={book.url} alt={book.title} />}
         <h4>Title: {book.title}</h4>
         <p>Author: {book.author}</p>
         <p>First Published: {book.firstPublished}</p>
