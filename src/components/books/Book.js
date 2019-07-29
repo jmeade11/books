@@ -23,14 +23,17 @@ class Book extends Component {
   componentDidMount () {
     axios(`${apiUrl}/books/${this.props.match.params.id}`)
       .then(res => {
-        const options = {
-          month: 'long',
-          day: 'numeric',
-          year: 'numeric'
+        let formattedDate = ''
+        if (res.data.book.firstPublished) {
+          const options = {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+          }
+          const dateObj = new Date(res.data.book.firstPublished)
+          const offsetDate = new Date(dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset()))
+          formattedDate = offsetDate.toLocaleDateString(undefined, options)
         }
-        const dateObj = new Date(res.data.book.firstPublished)
-        const offsetDate = new Date(dateObj.setMinutes(dateObj.getMinutes() + dateObj.getTimezoneOffset()))
-        const formattedDate = offsetDate.toLocaleDateString(undefined, options)
         this.setState({
           book: {
             ...res.data.book,
@@ -74,8 +77,8 @@ class Book extends Component {
         {book.url && <img src={book.url} alt={book.title} />}
         <h4>Title: {book.title}</h4>
         <p>Author: {book.author}</p>
-        <p>First Published: {book.firstPublished}</p>
-        <p>Original Language: {book.originalLanguage}</p>
+        {book.firstPublished && <p>First Published: {book.firstPublished}</p>}
+        {book.originalLanguage && <p>Original Language: {book.originalLanguage}</p>}
         {user && user._id === book.owner ? ownerButtons : <p>{user ? 'You don\'t own this book' : 'Sign in to edit your books'}</p>}
         <Button className="mt-2" href="#books"><i className="icofont-book-alt" /> Books</Button>
       </Layout>
