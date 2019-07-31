@@ -47,13 +47,18 @@ class EditBook extends Component {
   handleSubmit = event => {
     event.preventDefault()
 
+    const formData = new FormData(event.target)
+    formData.append('_id', this.state.book._id)
+
     axios({
-      url: `${apiUrl}/books/${this.props.match.params.id}`,
       method: 'PATCH',
+      url: `${apiUrl}/books/${this.props.match.params.id}`,
+      contentType: false,
+      processData: false,
       headers: {
         'Authorization': `Token token=${this.props.user.token}`
       },
-      data: { book: this.state.book }
+      data: formData
     })
       .then(() => this.props.history.push(`/books/${this.state.book._id}`))
       .then(() => this.props.alert('Nice!', 'You successfully updated this book.', 'success'))
