@@ -48,7 +48,7 @@ const BookForm = ({ book, handleChange, handleSubmit }) => {
         />
       </Form.Group>
       <Form.Group controlId="file" encType="multipart/form-data">
-        <Form.Label>Book Cover</Form.Label>
+        <Form.Label>{book._id ? book.url : 'Book Cover'}</Form.Label>
         <Form.Control
           type="file"
           name="file"
