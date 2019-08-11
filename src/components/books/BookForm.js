@@ -15,6 +15,7 @@ const BookForm = ({ book, handleChange, handleSubmit }) => {
           name="title"
           onChange={handleChange}
           value={book.title}
+          required
         />
       </Form.Group>
       <Form.Group controlId="author">
@@ -25,6 +26,7 @@ const BookForm = ({ book, handleChange, handleSubmit }) => {
           name="author"
           onChange={handleChange}
           value={book.author}
+          required
         />
       </Form.Group>
       <Form.Group controlId="originalLanguage">
